@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "482064896351",
+    "firebase_url": "https://tic-toc-teo-online.firebaseio.com",
+    "project_id": "tic-toc-teo-online",
+    "storage_bucket": "tic-toc-teo-online.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482064896351:android:9f032e68c9d01dd3e5a6ea",
+        "android_client_info": {
+          "package_name": "com.mrsoftit.tictocticonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482064896351-jvetdegndgr3tjkh67s9j777c1d61n6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrsoftit.tictocticonline",
+            "certificate_hash": "3f6e84a408fcbcfacfad1cefa4c43b73106cf77a"
+          }
+        },
+        {
+          "client_id": "482064896351-194jr3366tjbjap42j70vh3fd4b8ci9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7urflvGtLpT1GijzFOQqJmNxAGIv2RaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482064896351-194jr3366tjbjap42j70vh3fd4b8ci9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
