@@ -3,26 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#330000"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
+    <soup.neumorphism.NeumorphTextView
+        android:id="@+id/textview"
+        style="@style/Widget.Neumorph.TextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tic tok toe"
-        android:textAllCaps="true"
-        android:textAlignment="center"
-        android:textSize="56sp"
-        android:textColor="#ff66ff"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
+        android:text="Neumorphism"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         />
-
 
     <TextView
         android:id="@+id/logout"
@@ -38,11 +39,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageView
+        <soup.neumorphism.NeumorphImageView
             android:id="@+id/imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"/>
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_daynight_sky"
+
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
         <TextView
             android:textSize="20dp"
@@ -52,42 +59,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/onlinetwoplayer"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Online Two player"
-        android:textSize="20sp"
-        android:onClick="OnlieplayTwoPGame"
-        android:background="#66ffff"
-        android:textColor="#003300"
-        android:padding="10dp"/>
 
-    <Button
+
+
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/onlinetwoplayer"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Online Two player"
+        android:onClick="OnlieplayTwoPGame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <soup.neumorphism.NeumorphButton
         android:id="@+id/twoplayer"
-        android:layout_width="220dp"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:text="Two player"
-        android:textSize="20sp"
         android:onClick="playTwoPGame"
-        android:background="#66ffff"
-        android:textColor="#003300"
-        android:padding="10dp"/>
-    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <soup.neumorphism.NeumorphButton
         android:id="@+id/singleplayer"
-        android:layout_width="220dp"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:text="Single Player"
-        android:textSize="20sp"
         android:onClick="playSinglePGame"
-        android:background="#66ffff"
-        android:textColor="#003300"
-        android:padding="10dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </LinearLayout>

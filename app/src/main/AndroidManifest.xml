@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OnlinePlayGameActivity"></activity>
+        <activity android:name=".textActivity"></activity>
+        <activity android:name=".CardViewActivity" />
+        <activity android:name=".OnlinePlayGameActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -45,7 +47,7 @@
         <activity android:name=".PlayGameWithComputer" />
         <activity android:name=".PlayGame" />
         <activity android:name=".PlayerName" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

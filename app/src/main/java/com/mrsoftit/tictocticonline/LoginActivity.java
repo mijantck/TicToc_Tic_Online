@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,13 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,6 +38,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -48,7 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     LoginButton loginButton;
     CallbackManager callbackManager;
@@ -56,6 +65,14 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtUsername, txtEmail;
 
      FirebaseFirestore db;
+
+    private static final int RC_SIGN_IN = 9001;
+    private SignInButton signInButton;
+    FirebaseAuth firebaseAuth;
+    GoogleApiClient mGoogleApiClient;
+
+
+
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -85,16 +102,47 @@ public class LoginActivity extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
         loginButton = findViewById(R.id.login_button);
         imageView = findViewById(R.id.imageView);
         txtUsername = findViewById(R.id.txtUsername);
         txtEmail = findViewById(R.id.txtEmail);
 
+        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
 
+
+        //google
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(LoginActivity.this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+
+        if(firebaseAuth.getCurrentUser()!=null){
+
+
+
+           startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
 
         // Views
 
@@ -142,12 +190,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void getUserProfile(AccessToken currentAccessToken) {
         GraphRequest request = GraphRequest.newMeRequest(
@@ -220,6 +262,8 @@ public class LoginActivity extends AppCompatActivity {
         user.put("fbID", id);
         user.put("fbProfiteImageURL", image_url);
         user.put("uID",uID );
+        user.put("currentGameID",null );
+        user.put("status","online" );
         user.put("winGame",0);
         user.put("how_money_mach",0);
 
@@ -230,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                      //  startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -245,9 +289,89 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null){
 
-            startActivity(new Intent(this,MainActivity.class));
+          //  startActivity(new Intent(this,MainActivity.class));
 
         }
     }
 
+
+
+    private void signIn() {
+        Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signIntent,RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SIGN_IN){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if(result.isSuccess()){
+                GoogleSignInAccount account = result.getSignInAccount();
+                authWithGoogle(account);
+            }
+        }
+    }
+
+    private void authWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+
+
+
+                    FirebaseUser UserInfo = firebaseAuth.getCurrentUser();
+                    db = FirebaseFirestore.getInstance();
+
+                    String name = UserInfo.getDisplayName();
+                    String uID = UserInfo.getUid();
+                    String uEmail = UserInfo.getEmail();
+                    String uDP = UserInfo.getPhotoUrl().toString();
+
+                    final Map<String, Object> user = new HashMap<>();
+                    user.put("name",name );
+                    user.put("email", uEmail);
+                    user.put("fbID", "null");
+                    user.put("fbProfiteImageURL",uDP );
+                    user.put("uID",uID );
+                    user.put("currentGameID",null );
+                    user.put("status","online" );
+                    user.put("winGame",0);
+                    user.put("how_money_mach",0);
+
+
+                    db.collection("users").document(uID).set(user)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    progressDialog.dismiss();
+
+                                   startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Auth Error",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
+

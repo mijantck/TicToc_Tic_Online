@@ -6,10 +6,37 @@ public class UsersNote {
     String fbID;
     String fbProfiteImageURL;
     String uID;
+    String currentGameID;
+    String playing ;
+    String status ;
     int winGame;
     int  how_money_mach;
 
     public UsersNote(){}
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCurrentGameID() {
+        return currentGameID;
+    }
+
+    public void setCurrentGameID(String currentGameID) {
+        this.currentGameID = currentGameID;
+    }
+
+    public String getPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(String playing) {
+        this.playing = playing;
+    }
 
     public String getName() {
         return name;

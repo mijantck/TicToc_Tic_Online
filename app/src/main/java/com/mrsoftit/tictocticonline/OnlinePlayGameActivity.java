@@ -1,5 +1,6 @@
 package com.mrsoftit.tictocticonline;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.mrsoftit.tictocticonline.note.UsersNote;
+import com.squareup.picasso.Picasso;
 
 public class OnlinePlayGameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,11 +37,24 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
 
 
     boolean isGameActive = true;
+
+    FirebaseAuth auth;
+    FirebaseFirestore db;
+
+
+
+    String currentGameID;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_play_game);
 
+
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         headerText = findViewById(R.id.header_text);
         headerText.setText("O turn");
@@ -77,6 +101,7 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
         filledPos[clickedTag] = activePlayer;
 
         if(activePlayer == PLAYER_O){
+
             clickedBtn.setText("O");
             clickedBtn.setBackground(getDrawable(android.R.color.holo_blue_bright));
             activePlayer = PLAYER_X;
@@ -90,7 +115,7 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
         }
 
 
-        count -=1;
+        count -= 1;
         checkForWin();
     }
 
@@ -165,4 +190,55 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
         btn8.setBackground(getDrawable(android.R.color.darker_gray));
         isGameActive = true;
     }
+
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        DocumentReference docRef = db.collection("users").document(auth.getUid());
+
+        docRef.update("status","playing","currentGameID",currentGameID)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DocumentReference docRef = db.collection("users").document(auth.getUid());
+
+        docRef.update("status","playing","currentGameID",currentGameID)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                    }
+                });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        DocumentReference docRef = db.collection("users").document(auth.getUid());
+
+        docRef.update("status","offline")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                    }
+                });
+    }
+
 }
