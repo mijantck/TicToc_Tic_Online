@@ -53,6 +53,10 @@ dependencies {
     // shadowcardviewmvbm
     implementation 'com.github.sina-seyfi:AdvancedCardView:1.0.1'
 
+    //reppil animation
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
+
 
     //notification
     implementation 'com.google.firebase:firebase-messaging:20.2.4'

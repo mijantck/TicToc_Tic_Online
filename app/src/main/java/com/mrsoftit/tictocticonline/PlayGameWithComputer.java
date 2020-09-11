@@ -8,16 +8,27 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import com.gauravbhola.ripplepulsebackground.RipplePulseLayout;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.skyfishjy.library.RippleBackground;
 
 public class PlayGameWithComputer extends AppCompatActivity {
+
+
+
+
+
+
+    RipplePulseLayout layout_ripplepulse,layout_ripplepulseP;
+
 
 
     int turn = 1;
@@ -49,6 +60,14 @@ public class PlayGameWithComputer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game_with_computer);
 
+        layout_ripplepulse = findViewById(R.id.layout_ripplepulse);
+        layout_ripplepulseP = findViewById(R.id.layout_ripplepulseP);
+
+        layout_ripplepulse.startRippleAnimation();
+        layout_ripplepulseP.startRippleAnimation();
+
+
+
         playerTurn = (TextView) findViewById(R.id.player);
         builder = new AlertDialog.Builder(this);
         Intent intent = getIntent();
@@ -70,11 +89,6 @@ public class PlayGameWithComputer extends AppCompatActivity {
             computerPlay();
             turn=2;
         }
-
-
-
-
-
     }
 
 
@@ -85,7 +99,6 @@ public class PlayGameWithComputer extends AppCompatActivity {
         flag = 0;
         if (turn == 1 && gamov == 0 && !(playBoard[i][j].getText().toString().equals("X")) && !(playBoard[i][j].getText().toString().equals("O"))) {
 
-
             if(flipValue==0){
                 displayTurn=player2Name + "'s turn (O)";
                 //  Log.v("BoardMatrix",String.valueOf(boardMatrix[0][0])+" "+String.valueOf(boardMatrix[0][1])+" "+String.valueOf(boardMatrix[0][2])+" "+String.valueOf(boardMatrix[1][0])+" "+String.valueOf(boardMatrix[1][1])+" "+String.valueOf(boardMatrix[1][2])+" "+String.valueOf(boardMatrix[2][0])+" "+String.valueOf(boardMatrix[2][1])+" "+String.valueOf(boardMatrix[2][2]));
@@ -94,10 +107,28 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 boardMatrix[i][j]=1;
                 turn = 2;
                 moveNumber++;
-                computerPlay();
-                turn = 1;
-                displayTurn=player1Name + "'s turn (X)";
-                moveNumber++;
+
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        //do something
+
+
+                        computerPlay();
+                        turn = 1;
+                        displayTurn=player1Name + "'s turn (X)";
+                        moveNumber++;
+
+
+                    }
+                }, 2000 );//time in milisecond
+
+
+
+
+
             }
 
 
@@ -111,59 +142,81 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 boardMatrix[i][j]=1;
                 turn = 1;
                 moveNumber++;
-                computerPlay();
-                displayTurn=player1Name + "'s turn (O)";
-                turn = 2;
-                moveNumber++;
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // do something after 2s = 2000 miliseconds
+                        computerPlay();
+
+                        displayTurn=player1Name + "'s turn (O)";
+                        turn = 2;
+                        moveNumber++;
+                    }
+                }, 2000); //Time in milisecond
+
 
             }
 
         }
 
-        checkWin();
-        if (gamov == 1) {
-            if (win == 1) {
-                builder.setMessage(player1Name + " wins!").setTitle("Game over");
-                if(flagEndGame==0){
-                    player1Win++;
-                    counter++;
-                }
 
 
-            } else if (win == 2) {
-                builder.setMessage(player2Name + " wins!").setTitle("Game over");
-                if(flagEndGame==0){
-                    player2Win++;
-                    counter++;
-                }
+        new Handler().postDelayed(new Runnable() {
 
-            }
-            flagEndGame=1;
-            builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int id){
-                    newGame(new View(getApplicationContext()));
-                    if (counter == number) {
-                        Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
-                        intent.putExtra("Player 1 Wins", player1Win);
-                        intent.putExtra("Player 2 Wins", player2Win);
-                        intent.putExtra("Draws", draw);
-                        intent.putExtra("Player 1 Name", player1Name);
-                        intent.putExtra("Player 2 Name", player2Name);
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                            finish();
+            @Override
+            public void run() {
+                //do something
+                checkWin();
+                if (gamov == 1) {
+                    if (win == 1) {
+                        builder.setMessage(player1Name + " wins!").setTitle("Game over");
+                        if(flagEndGame==0){
+                            player1Win++;
+                            counter++;
+                        }
+
+
+                    } else if (win == 2) {
+                        builder.setMessage(player2Name + " wins!").setTitle("Game over");
+                        if(flagEndGame==0){
+                            player2Win++;
+                            counter++;
                         }
 
                     }
+                    flagEndGame=1;
+                    builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id){
+                            newGame(new View(getApplicationContext()));
+                            if (counter == number) {
+                                Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
+                                intent.putExtra("Player 1 Wins", player1Win);
+                                intent.putExtra("Player 2 Wins", player2Win);
+                                intent.putExtra("Draws", draw);
+                                intent.putExtra("Player 1 Name", player1Name);
+                                intent.putExtra("Player 2 Name", player2Name);
+                                if (intent.resolveActivity(getPackageManager()) != null) {
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            }
+                        }
+
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+
                 }
-
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            }
+        }, 2100 );//time in milisecond
 
 
 
-        }
+
         if (gamov == 0) {
             for (i = 0; i < 3; i++) {
                 for (j = 0; j < 3; j++) {
@@ -225,6 +278,8 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
 
     }
+
+
     public void computerPlay(){
         int currentTurn = turn;
         int currentMove = moveNumber;
@@ -233,7 +288,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
         int flag=0;
         int flagGameNotOver=0;
 
-        int counter=0;
+        int counter =0;
         double sum=0;
         if(turn==1){
             turn=2;
@@ -331,6 +386,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
             displayTurn=player1Name+"'s turn (X)";
             playerTurn.setText(displayTurn);
         }
+
         else{
             playBoard[xCoord][yCoord].setText("X");
             displayTurn=player1Name+"'s turn (O)";

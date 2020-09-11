@@ -47,7 +47,6 @@
             android:layout_gravity="center_horizontal"
             android:scaleType="centerInside"
             android:src="@drawable/ic_daynight_sky"
-
             app:layout_constraintStart_toStartOf="parent"
             />
 
