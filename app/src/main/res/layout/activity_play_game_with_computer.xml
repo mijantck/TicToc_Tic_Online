@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     tools:context=".PlayGameWithComputer"
     android:fillViewport="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -18,17 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/game_name"
-            android:textColor="#ffff00"
-            android:textSize="41sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
-            android:textAlignment="center"
-            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,7 +29,7 @@
             ripple:rippleColor="#3D66C7"
             ripple:rippleType="stroke"
             ripple:strokeWidth="2dp"
-            ripple:startRadius="40dp"
+            ripple:startRadius="20dp"
             ripple:endRadius="100dp"
             ripple:duration="1000"
             android:id="@+id/layout_ripplepulseP">
@@ -56,11 +44,7 @@
                 android:src="@drawable/ic_person_play"
                 app:layout_constraintStart_toStartOf="parent"
                 />
-
-
         </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
-
-
 
             <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
                 android:layout_alignParentRight="true"
@@ -70,7 +54,7 @@
                 ripple:rippleColor="#3D66C7"
                 ripple:rippleType="stroke"
                 ripple:strokeWidth="2dp"
-                ripple:startRadius="40dp"
+                ripple:startRadius="20dp"
                 ripple:endRadius="100dp"
                 ripple:duration="1000"
                 android:id="@+id/layout_ripplepulse">
@@ -82,59 +66,168 @@
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerInside"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_person_play"
+                    android:src="@drawable/ic_computer_black"
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
 
             </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/edittext_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/default_player_turn_text"
+                    android:textSize="10sp"
+                    android:textColor="#030304"
+                    android:layout_centerInParent="true"
+                    android:padding="10sp"
+                    />
+            </soup.neumorphism.NeumorphCardView>
+
         </RelativeLayout>
-        <TextView
-            android:id="@+id/player"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:text="@string/default_player_turn_text"
-            android:textSize="22sp"
-            android:textColor="#00ff00"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
 
-            />
         <LinearLayout
+            android:weightSum="3"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/player1Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/dow1Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/play2Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             >
-            <Button
-                android:id="@+id/res"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
 
-                android:text="@string/restart_game_button_text"
-                android:onClick="newGame"
-                android:background="#ffb3ff"
-                android:textColor="#330033"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
-                android:padding="4dp"
-
-                />
-            <Button
-                android:id="@+id/restartmatch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-
-                android:text="@string/restart_match_button_text"
-                android:onClick="newMatch"
-                android:background="#ffb3ff"
-                android:textColor="#330033"
-                android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
-                android:padding="4dp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/res"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36dp"
+                    android:drawablePadding="8dp"
+                    android:onClick="newGame"
+                    android:maxLines="1"
+                    android:textSize="8dp"
+                    android:text="@string/restart_game_button_text"
+                    app:drawableStartCompat="@drawable/ic_restore"
+                    app:neumorph_shapeType="flat" />
+            </LinearLayout>
 
 
-                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/restartmatch"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36dp"
+                    android:drawablePadding="8dp"
+                    android:textSize="8dp"
+                    android:text="@string/restart_match_button_text"
+                    android:onClick="newMatch"
+                    android:maxLines="1"
+                    app:drawableEndCompat="@drawable/ic_restore"
+                    app:neumorph_shapeType="flat" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <GridLayout

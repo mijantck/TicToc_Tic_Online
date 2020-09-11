@@ -43,15 +43,19 @@ public class PlayGameWithComputer extends AppCompatActivity {
     int boardMatrix[][] = new int[3][3];
     double probMatrix[][] = new double[3][3];
     TextView playerTurn;
-    String player1Name;
+    String player1Name = " Your ";
     String player2Name;
     String numberText;
-    int number;
+    int number = 999;
     int moveNumber=1;
     int counter = 0;
+
     int player1Win = 0, player2Win = 0, draw = 0;
     int flipValue=0;
     AlertDialog.Builder builder;
+
+    TextView play1,drwo,play2;
+
 
 
 
@@ -61,9 +65,22 @@ public class PlayGameWithComputer extends AppCompatActivity {
         setContentView(R.layout.activity_play_game_with_computer);
 
         layout_ripplepulse = findViewById(R.id.layout_ripplepulse);
+
+
+        play1 = findViewById(R.id.player1Win);
+        drwo = findViewById(R.id.dow1Win);
+        play2 = findViewById(R.id.play2Win);
+
+
+
+
+
+
+
+
         layout_ripplepulseP = findViewById(R.id.layout_ripplepulseP);
 
-        layout_ripplepulse.startRippleAnimation();
+
         layout_ripplepulseP.startRippleAnimation();
 
 
@@ -71,10 +88,10 @@ public class PlayGameWithComputer extends AppCompatActivity {
         playerTurn = (TextView) findViewById(R.id.player);
         builder = new AlertDialog.Builder(this);
         Intent intent = getIntent();
-        player1Name = intent.getExtras().getString("Player 1");
+      //  player1Name = intent.getExtras().getString("Player 1");
         player2Name = "Computer";
-        numberText = intent.getExtras().getString("Number");
-        number = Integer.parseInt(numberText);
+       // numberText = intent.getExtras().getString("Number");
+      //  number = Integer.parseInt(numberText);
         grid = (GridLayout) findViewById(R.id.grid);
         displayTurn=player1Name + "'s turn (X)";
         playerTurn.setText(displayTurn);
@@ -97,6 +114,10 @@ public class PlayGameWithComputer extends AppCompatActivity {
         int i = index / 3;
         int j = index % 3;
         flag = 0;
+
+        layout_ripplepulse.startRippleAnimation();
+        layout_ripplepulseP.stopRippleAnimation();
+
         if (turn == 1 && gamov == 0 && !(playBoard[i][j].getText().toString().equals("X")) && !(playBoard[i][j].getText().toString().equals("O"))) {
 
             if(flipValue==0){
@@ -174,6 +195,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
                         if(flagEndGame==0){
                             player1Win++;
                             counter++;
+                            play1.setText(player1Win+"");
                         }
 
 
@@ -182,6 +204,8 @@ public class PlayGameWithComputer extends AppCompatActivity {
                         if(flagEndGame==0){
                             player2Win++;
                             counter++;
+
+                            play2.setText(player2Win+"");
                         }
 
                     }
@@ -230,8 +254,9 @@ public class PlayGameWithComputer extends AppCompatActivity {
             if (flag == 0) {
                 builder.setMessage("It's a draw!").setTitle("Game over");
                 if(flagEndGame==0){
-                    counter++;
                     draw++;
+                    counter++;
+                    drwo.setText(draw+"");
                 }
                 flagEndGame=1;
                 builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
@@ -281,6 +306,8 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
 
     public void computerPlay(){
+
+
         int currentTurn = turn;
         int currentMove = moveNumber;
         int i=0,j=0;
@@ -396,6 +423,9 @@ public class PlayGameWithComputer extends AppCompatActivity {
         //  Log.v("CP","I have moved!!! "+ String.valueOf(xCoord)+" "+String.valueOf(yCoord)+" "+String.valueOf(boardMatrix[xCoord][yCoord])+" "+String.valueOf(probMatrix[xCoord][yCoord]));
         //  Log.v("CP",String.valueOf(probMatrix[0][0])+" "+String.valueOf(probMatrix[0][1])+" "+String.valueOf(probMatrix[0][2])+" "+String.valueOf(probMatrix[1][0])+" "+String.valueOf(probMatrix[1][1])+" "+String.valueOf(probMatrix[1][2])+" "+String.valueOf(probMatrix[2][0])+" "+String.valueOf(probMatrix[2][1])+" "+String.valueOf(probMatrix[2][2]));
 
+
+        layout_ripplepulseP.startRippleAnimation();
+        layout_ripplepulse.stopRippleAnimation();
     }
 
     public double computerAnalyze() {
@@ -583,6 +613,8 @@ public class PlayGameWithComputer extends AppCompatActivity {
             }
 
 
+
+
         }
         if (playBoard[0][0].getText().toString().equals(playBoard[1][1].getText().toString()) && playBoard[0][0].getText().toString().equals(playBoard[2][2].getText().toString())) {
             if (playBoard[0][0].getText().toString().equals("X")) {
@@ -630,10 +662,13 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 playBoard[2][0].setTextColor(Color.RED);
                 playBoard[1][1].setTextColor(Color.RED);
                 playBoard[0][2].setTextColor(Color.RED);
+
             }
 
 
         }
+
+
     }
 
     public int checkWinComp() {

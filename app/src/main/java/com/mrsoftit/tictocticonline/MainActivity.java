@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity  implements
     }
 
     public void playSinglePGame(View view) {
-        Intent intent = new Intent(this, PlayerNameWithComputer.class);
+        Intent intent = new Intent(this, PlayGameWithComputer.class);
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
         }
