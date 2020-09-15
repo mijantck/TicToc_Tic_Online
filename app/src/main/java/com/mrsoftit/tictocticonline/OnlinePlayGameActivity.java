@@ -21,9 +21,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.mrsoftit.tictocticonline.note.UsersNote;
 import com.squareup.picasso.Picasso;
 
+import soup.neumorphism.NeumorphButton;
+
 public class OnlinePlayGameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8;
+    NeumorphButton btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8;
     TextView headerText;
 
     int PLAYER_O = 0;
@@ -56,7 +58,7 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        headerText = findViewById(R.id.header_text);
+        headerText = findViewById(R.id.playerturn);
         headerText.setText("O turn");
         winChacklastNumber = 0;
 
@@ -123,6 +125,7 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
         //we will check who is winner and show
         int[][] winningPos = {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
 
+
         for(int i =0 ;i<8;i++){
             int val0  = winningPos[i][0];
             int val1  = winningPos[i][1];
@@ -133,18 +136,28 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
                     //winner declare
                     isGameActive = false;
                     if(filledPos[val0] == PLAYER_O) {
-                        count = 1;
+                        count = 9;
+                        restartGame();
                         showDialog("O is winner");
+                        Toast.makeText(this, count+"", Toast.LENGTH_SHORT).show();
+
                     }
                     else if (filledPos[val0] == PLAYER_X){
-                        count = 1;
+
+                        count = 9;
+                        restartGame();
                         showDialog("X is winner");
+                        Toast.makeText(this, count+"", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-            else if (!(filledPos[val0] == filledPos[val1] && filledPos[val1] == filledPos[val2]) && count == 0){
+
+           else if (count == 0 ){
+                Toast.makeText(this, count+"", Toast.LENGTH_SHORT).show();
+
                 count = 9;
-                showDialog("drow");
+                restartGame();
+                showDialog("draw");
 
             }
         }
@@ -158,7 +171,7 @@ public class OnlinePlayGameActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         count = 9;
-                        restartGame();
+
                         dialog.dismiss();
                     }
                 })

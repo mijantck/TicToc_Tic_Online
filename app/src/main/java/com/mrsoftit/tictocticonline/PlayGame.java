@@ -14,6 +14,7 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 
+import com.gauravbhola.ripplepulsebackground.RipplePulseLayout;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,14 +31,23 @@ public class PlayGame extends AppCompatActivity {
     GridLayout grid;
     Button playBoard[][] = new Button[3][3];
     TextView playerTurn;
-    String player1Name;
-    String player2Name;
+    String player1Name = " player 1";
+    String player2Name = " player 2";
     String numberText;
-    int number;
+    int number = 9999;
     int counter = 0;
     int player1Win = 0, player2Win = 0, draw = 0;
     int flipValue=0;
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builder,bulder1;
+
+    TextView play1,drwo,play2;
+
+    RipplePulseLayout layout_ripplepulse,layout_ripplepulseP;
+
+    int ripleWave = 0;
+
+
+
 
 
     @Override
@@ -47,14 +57,28 @@ public class PlayGame extends AppCompatActivity {
 
         playerTurn = (TextView) findViewById(R.id.player);
         builder = new AlertDialog.Builder(this);
+        bulder1 = new AlertDialog.Builder(this);
         Intent intent = getIntent();
-        player1Name = intent.getExtras().getString("Player 1");
-        player2Name = intent.getExtras().getString("Player 2");
-        numberText = intent.getExtras().getString("Number");
-        number = Integer.parseInt(numberText);
+       // player1Name = intent.getExtras().getString("Player 1");
+       // player2Name = intent.getExtras().getString("Player 2");
+      //  numberText = intent.getExtras().getString("Number");
+      //  number = Integer.parseInt(numberText);
         grid = (GridLayout) findViewById(R.id.grid);
         displayTurn=player1Name + "'s turn (X)";
         playerTurn.setText(displayTurn);
+
+        play1 = findViewById(R.id.Tplayer1Win);
+        drwo = findViewById(R.id.Tdow1Win);
+        play2 = findViewById(R.id.Tplay2Win);
+
+        layout_ripplepulse = findViewById(R.id.layout_ripplepulse);
+        layout_ripplepulseP = findViewById(R.id.layout_ripplepulseP);
+
+        layout_ripplepulseP.startRippleAnimation();
+
+
+
+
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -68,6 +92,41 @@ public class PlayGame extends AppCompatActivity {
         int index = grid.indexOfChild(view);
         int i = index / 3;
         int j = index % 3;
+
+        if (turn == 1){
+
+            if(flipValue==0){
+
+                layout_ripplepulseP.stopRippleAnimation();
+                layout_ripplepulse.startRippleAnimation();
+
+            }
+            else if(flipValue == 1){
+                layout_ripplepulse.stopRippleAnimation();
+                layout_ripplepulseP.startRippleAnimation();
+            }
+
+
+            ripleWave = 1;
+
+        }else if (turn == 2){
+
+            if(flipValue==0){
+
+                layout_ripplepulse.stopRippleAnimation();
+                layout_ripplepulseP.startRippleAnimation();
+            }
+            else if(flipValue==1){
+
+                layout_ripplepulseP.stopRippleAnimation();
+                layout_ripplepulse.startRippleAnimation();
+
+            }
+
+
+
+            ripleWave = 0;
+        }
         flag = 0;
         if (turn == 1 && gamov == 0 && !(playBoard[i][j].getText().toString().equals("X")) && !(playBoard[i][j].getText().toString().equals("O"))) {
 
@@ -75,11 +134,14 @@ public class PlayGame extends AppCompatActivity {
             if(flipValue==0){
                 displayTurn=player2Name + "'s turn (O)";
                 playerTurn.setText(displayTurn);
+
             }
             else if(flipValue==1){
                 displayTurn=player1Name + "'s turn (O)";
                 playerTurn.setText(displayTurn);
+
             }
+
             playBoard[i][j].setText("X");
             turn = 2;
 
@@ -91,6 +153,7 @@ public class PlayGame extends AppCompatActivity {
             else if(flipValue==1){
                 displayTurn=player2Name + "'s turn (X)";
                 playerTurn.setText(displayTurn);
+
             }
             playBoard[i][j].setText("O");
             turn = 1;
@@ -103,6 +166,7 @@ public class PlayGame extends AppCompatActivity {
                 if(flagEndGame==0){
                     player1Win++;
                     counter++;
+                    play1.setText(player1Win+"");
                 }
 
 
@@ -111,13 +175,14 @@ public class PlayGame extends AppCompatActivity {
                 if(flagEndGame==0){
                     player2Win++;
                     counter++;
+                    play2.setText(player2Win+"");
                 }
 
             }
             flagEndGame=1;
             builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int id){
-                    newGame(new View(getApplicationContext()));
+                    newGame();
                     if (counter == number) {
                         Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
                         intent.putExtra("Player 1 Wins", player1Win);
@@ -155,11 +220,13 @@ public class PlayGame extends AppCompatActivity {
                 if(flagEndGame==0){
                     counter++;
                     draw++;
+                    drwo.setText(draw+"");
+
                 }
                 flagEndGame=1;
                 builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
-                        newGame(new View(getApplicationContext()));
+                        newGame();
                         if (counter == number) {
                             Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
                             intent.putExtra("Player 1 Wins", player1Win);
@@ -188,7 +255,7 @@ public class PlayGame extends AppCompatActivity {
 
     }
 
-    public void newGame(View view) {
+    public void newGame() {
 
         win = 0;
         gamov = 0;
@@ -196,7 +263,7 @@ public class PlayGame extends AppCompatActivity {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 playBoard[i][j].setText(" ");
-                playBoard[i][j].setTextColor(Color.WHITE);
+                playBoard[i][j].setTextColor(Color.BLACK);
             }
         }
 
@@ -336,11 +403,45 @@ public class PlayGame extends AppCompatActivity {
         }
     }
     public void newMatch(View view){
-        Intent intent = new Intent(this,PlayerName.class);
+
+        bulder1.setMessage("Are you sure cancel game ");
+        bulder1.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                newGame();
+
+            }
+        });
+        bulder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        bulder1.create();
+        bulder1.show();
+
+      /*  Intent intent = new Intent(this,PlayerNameWithComputer.class);
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
             finish();
-        }
+        }*/
     }
 
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        PlayGame.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 }

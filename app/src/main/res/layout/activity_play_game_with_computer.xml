@@ -192,22 +192,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
-                <soup.neumorphism.NeumorphButton
-                    android:id="@+id/res"
-                    style="@style/Widget.Neumorph.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="36dp"
-                    android:drawablePadding="8dp"
-                    android:onClick="newGame"
-                    android:maxLines="1"
-                    android:textSize="8dp"
-                    android:text="@string/restart_game_button_text"
-                    app:drawableStartCompat="@drawable/ic_restore"
-                    app:neumorph_shapeType="flat" />
+
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -218,7 +204,6 @@
                     style="@style/Widget.Neumorph.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="36dp"
                     android:drawablePadding="8dp"
                     android:textSize="8dp"
                     android:text="@string/restart_match_button_text"

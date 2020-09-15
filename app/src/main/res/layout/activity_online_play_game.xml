@@ -4,140 +4,294 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     tools:context=".OnlinePlayGameActivity">
 
 
     <LinearLayout
-        android:weightSum="10"
+        android:orientation="vertical"
+        android:id="@+id/lastLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_weight="5"
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:src="@drawable/ic_person_black"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+            <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:clipChildren="false"
+                ripple:rippleColor="#3D66C7"
+                ripple:rippleType="stroke"
+                ripple:strokeWidth="2dp"
+                ripple:startRadius="20dp"
+                ripple:endRadius="100dp"
+                ripple:duration="1000"
+                android:id="@+id/layout_ripplepulseP">
+
+                <soup.neumorphism.NeumorphImageView
+                    style="@style/Widget.Neumorph.ImageButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_person_play"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
+
+            <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:clipChildren="false"
+                ripple:rippleColor="#3D66C7"
+                ripple:rippleType="stroke"
+                ripple:strokeWidth="2dp"
+                ripple:startRadius="20dp"
+                ripple:endRadius="100dp"
+                ripple:duration="1000"
+                android:id="@+id/layout_ripplepulse">
+
+                <soup.neumorphism.NeumorphImageView
+                    style="@style/Widget.Neumorph.ImageButton"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_person_play"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+
+            </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/edittext_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/playerturn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/default_player_turn_text"
+                    android:textSize="10sp"
+                    android:textColor="#030304"
+                    android:layout_centerInParent="true"
+                    android:padding="10sp"
+                    />
+            </soup.neumorphism.NeumorphCardView>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:maxLines="1"
-                    android:text="player name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:maxLines="1"
-                    android:text="wine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:layout_gravity="center"
+                >
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/Tplayer1Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/Tdow1Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:id="@+id/Tplay2Win"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 0 "
+                        android:textSize="15sp"
+                        android:textColor="#030304"
+                        android:layout_centerInParent="true"
+                        android:padding="10sp"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/restartmatch"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:textSize="8dp"
+                    android:text="@string/restart_match_button_text"
+                    android:maxLines="1"
+                    app:drawableEndCompat="@drawable/ic_restore"
+                    app:neumorph_shapeType="flat" />
+            </LinearLayout>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header_text"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="My Tictactoe"/>
+
+
+
+
 
     <LinearLayout
+        android:layout_below="@+id/lastLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header_text"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn0"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="0"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="0"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="1"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="2"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="2"/>
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="3"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="3"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="4"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="4"/>
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
 
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="@dimen/activity_horizontal_margin"
-                >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:id="@+id/btn5"
-                    android:tag="5"
-                    android:textSize="60sp"
-                    android:background="@android:color/darker_gray"
-                    tools:text="5"/>
-
-
-            </com.google.android.material.card.MaterialCardView>
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/btn5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
+                android:tag="5"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
 
         </LinearLayout>
         <LinearLayout
@@ -145,33 +299,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="6"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="6"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn7"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="7"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="7"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/btn8"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text=""
                 android:tag="8"
-                android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="8"/>
+                app:neumorph_shapeType="pressed"
+                android:textSize="70sp"
+                android:gravity="center"/>
 
         </LinearLayout>
 

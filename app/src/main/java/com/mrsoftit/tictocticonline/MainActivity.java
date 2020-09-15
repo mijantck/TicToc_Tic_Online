@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity  implements
     }
 
     public void playTwoPGame(View view) {
-        Intent intent = new Intent(this,PlayerName.class);
+        Intent intent = new Intent(this,PlayGame.class);
         if(intent.resolveActivity(getPackageManager())!=null) {
             startActivity(intent);
         }
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity  implements
 
     public void OnlieplayTwoPGame(View view) {
 
-        Intent intent = new Intent(this, textActivity.class);
+        Intent intent = new Intent(this, OnlinePlayGameActivity.class);
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
 

@@ -18,6 +18,7 @@ import com.gauravbhola.ripplepulsebackground.RipplePulseLayout;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.skyfishjy.library.RippleBackground;
 
 public class PlayGameWithComputer extends AppCompatActivity {
@@ -52,9 +53,11 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
     int player1Win = 0, player2Win = 0, draw = 0;
     int flipValue=0;
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builder,bulder1;
 
     TextView play1,drwo,play2;
+
+
 
 
 
@@ -65,6 +68,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
         setContentView(R.layout.activity_play_game_with_computer);
 
         layout_ripplepulse = findViewById(R.id.layout_ripplepulse);
+        layout_ripplepulseP = findViewById(R.id.layout_ripplepulseP);
 
 
         play1 = findViewById(R.id.player1Win);
@@ -74,19 +78,14 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
 
 
-
-
-
-
-        layout_ripplepulseP = findViewById(R.id.layout_ripplepulseP);
-
-
         layout_ripplepulseP.startRippleAnimation();
 
 
 
         playerTurn = (TextView) findViewById(R.id.player);
         builder = new AlertDialog.Builder(this);
+
+        bulder1 = new AlertDialog.Builder(this);
         Intent intent = getIntent();
       //  player1Name = intent.getExtras().getString("Player 1");
         player2Name = "Computer";
@@ -191,7 +190,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 checkWin();
                 if (gamov == 1) {
                     if (win == 1) {
-                        builder.setMessage(player1Name + " wins!").setTitle("Game over");
+                        builder.setMessage(player1Name + " wins!").setTitle("Game over").setCancelable(false);
                         if(flagEndGame==0){
                             player1Win++;
                             counter++;
@@ -200,7 +199,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
 
                     } else if (win == 2) {
-                        builder.setMessage(player2Name + " wins!").setTitle("Game over");
+                        builder.setMessage(player2Name + " wins!").setTitle("Game over").setCancelable(false);
                         if(flagEndGame==0){
                             player2Win++;
                             counter++;
@@ -210,10 +209,15 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
                     }
                     flagEndGame=1;
+
                     builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int id){
-                            newGame(new View(getApplicationContext()));
-                            if (counter == number) {
+
+                            newGame();
+
+                            builder.setCancelable(true);
+
+                          /*  if (counter == number) {
                                 Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
                                 intent.putExtra("Player 1 Wins", player1Win);
                                 intent.putExtra("Player 2 Wins", player2Win);
@@ -225,7 +229,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
                                     finish();
                                 }
 
-                            }
+                            }*/
                         }
 
                     });
@@ -252,7 +256,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 }
             }
             if (flag == 0) {
-                builder.setMessage("It's a draw!").setTitle("Game over");
+                builder.setMessage("It's a draw!").setTitle("Game over").setCancelable(false);
                 if(flagEndGame==0){
                     draw++;
                     counter++;
@@ -262,7 +266,10 @@ public class PlayGameWithComputer extends AppCompatActivity {
                 builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
 
-                        if (counter == number) {
+                        newGame();
+                        builder.setCancelable(true);
+
+                      /*  if (counter == number) {
                             Intent intent = new Intent(getApplicationContext(), SeriesResult.class);
                             intent.putExtra("Player 1 Wins", player1Win);
                             intent.putExtra("Player 2 Wins", player2Win);
@@ -274,10 +281,8 @@ public class PlayGameWithComputer extends AppCompatActivity {
                                 finish();
                             }
 
-                        }
-                        else {
-                            newGame(new View(getApplicationContext()));
-                        }
+                        }*/
+
                     }
 
                 });
@@ -511,7 +516,7 @@ public class PlayGameWithComputer extends AppCompatActivity {
         return average;
     }
 
-    public void newGame(View view) {
+    public void newGame() {
 
         win = 0;
         gamov = 0;
@@ -763,11 +768,46 @@ public class PlayGameWithComputer extends AppCompatActivity {
 
 
 
+
     public void newMatch(View view){
-        Intent intent = new Intent(this,PlayerNameWithComputer.class);
+        bulder1.setMessage("Are you sure cancel game ");
+        bulder1.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                newGame();
+
+            }
+        });
+        bulder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        bulder1.create();
+        bulder1.show();
+
+      /*  Intent intent = new Intent(this,PlayerNameWithComputer.class);
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
             finish();
-        }
+        }*/
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        PlayGameWithComputer.this.finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }
