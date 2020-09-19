@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity  implements
 
     public void OnlieplayTwoPGame(View view) {
 
-        Intent intent = new Intent(this, OnlinePlayGameActivity.class);
+        Intent intent = new Intent(this, OnlinePlayerCreateGameID.class);
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
 

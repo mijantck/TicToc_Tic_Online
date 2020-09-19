@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SeriesResult" />
-        <activity android:name=".PlayerNameWithComputer" />
+        <activity android:name=".OnlinePlayerCreateGameID" />
         <activity android:name=".PlayGameWithComputer" />
         <activity android:name=".PlayGame" />
         <activity android:name=".PlayerName" />

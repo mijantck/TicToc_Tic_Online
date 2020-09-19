@@ -15,6 +15,7 @@ public class PlayGameNote {
     String player2drow;
     String player2ImageURL;
 
+
     String winerID;
     int maschCount;
     int wine;
@@ -31,6 +32,7 @@ public class PlayGameNote {
     int btn6;
     int btn7;
     int btn8;
+
 
 
 

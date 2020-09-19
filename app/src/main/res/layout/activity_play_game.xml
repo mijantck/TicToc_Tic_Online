@@ -212,10 +212,31 @@
 
         </LinearLayout>
 
+
+
+        <soup.neumorphism.NeumorphCardView
+            android:layout_below="@+id/lastLayout"
+            style="@style/Widget.Neumorph.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shadowColorLight="@color/colorAccent"
+            app:neumorph_shadowColorDark="@color/colorAccent"
+            app:neumorph_inset="12dp"
+            app:neumorph_insetStart="12dp"
+            app:neumorph_insetEnd="12dp"
+            app:neumorph_insetTop="12dp"
+            app:neumorph_insetBottom="12dp"
+
+            >
+
         <GridLayout
             android:id="@+id/grid"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
             android:orientation="horizontal"
             android:columnCount="3"
@@ -314,6 +335,8 @@
                 app:neumorph_shapeType="pressed" />
 
         </GridLayout>
+
+        </soup.neumorphism.NeumorphCardView>
 
     </LinearLayout>
 
