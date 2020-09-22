@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:text="Random person"/>
 
+
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/edittext_card"
             style="@style/Widget.Neumorph.CardView"
@@ -34,7 +35,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Room id"
                 android:singleLine="true" />
+
         </soup.neumorphism.NeumorphCardView>
+
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/enterroomidButttom"
@@ -43,13 +46,11 @@
         android:layout_height="wrap_content"
         android:text="Play with Room id"/>
 
+
     <soup.neumorphism.NeumorphButton
         android:id="@+id/with_my_friend"
         style="@style/Widget.Neumorph.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Invite friend"/>
-
-
-
     </LinearLayout>

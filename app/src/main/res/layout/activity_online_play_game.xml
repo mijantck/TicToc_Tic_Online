@@ -29,17 +29,21 @@
                 ripple:endRadius="100dp"
                 ripple:duration="1000"
                 android:id="@+id/layout_ripplepulseP">
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
 
-                <soup.neumorphism.NeumorphImageView
-                    style="@style/Widget.Neumorph.ImageButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:scaleType="centerInside"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_person_play"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_person_play"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#00BCD4"/>
+                </soup.neumorphism.NeumorphCardView>
+
             </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
 
             <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
@@ -55,16 +59,20 @@
                 ripple:duration="1000"
                 android:id="@+id/layout_ripplepulse">
 
-                <soup.neumorphism.NeumorphImageView
-                    style="@style/Widget.Neumorph.ImageButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:scaleType="centerInside"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_person_play"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_person_play"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#00BCD4"/>
+                </soup.neumorphism.NeumorphCardView>
 
 
             </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
@@ -236,6 +244,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="0"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -246,6 +255,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="1"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -255,6 +265,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="2"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -273,6 +284,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="3"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -283,6 +295,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="4"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -293,6 +306,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="5"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -310,6 +324,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="6"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -320,6 +335,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="7"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>
@@ -329,6 +345,7 @@
                 android:layout_height="100dp"
                 android:text=""
                 android:tag="8"
+                android:onClick="onClick"
                 app:neumorph_shapeType="pressed"
                 android:textSize="70sp"
                 android:gravity="center"/>

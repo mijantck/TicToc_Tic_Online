@@ -76,12 +76,17 @@ public class OnlinePlayerCreateGameID extends AppCompatActivity {
         FirebaseFirestore product = FirebaseFirestore.getInstance();
 
 
-
         random_pason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(OnlinePlayerCreateGameID.this,OnlinePlayGameActivity.class);
+                intent.putExtra("gameType","searching");
+                intent.putExtra("randomCode",randomStr);
+                startActivity(intent);
 
+
+             /*
                 randomStr =generateRandom(candidateChars);
 
                 if (mAuth != null){
@@ -177,7 +182,7 @@ public class OnlinePlayerCreateGameID extends AppCompatActivity {
 
                     Toast.makeText(OnlinePlayerCreateGameID.this, "Not internet connection", Toast.LENGTH_SHORT).show();
 
-                }
+                }*/
             }
         });
 
@@ -185,6 +190,29 @@ public class OnlinePlayerCreateGameID extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                randomStr = generateRandom(candidateChars);
+              String code = randomStr.trim();
+
+                Intent intent = new Intent(OnlinePlayerCreateGameID.this,OnlinePlayGameActivity.class);
+                intent.putExtra("gameType","inviting");
+                intent.putExtra("randomCode",code);
+                startActivity(intent);
+
+            }
+        });
+
+
+        enterroomidButttom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                String roomCode = roomidcode.getText().toString().trim();
+
+                Intent intent = new Intent(OnlinePlayerCreateGameID.this,OnlinePlayGameActivity.class);
+                intent.putExtra("gameType",roomCode);
+                intent.putExtra("randomCode",randomStr);
+                startActivity(intent);
 
             }
         });
@@ -246,7 +274,7 @@ public class OnlinePlayerCreateGameID extends AppCompatActivity {
     private static String generateRandom(String aToZ) {
         Random rand=new Random();
         StringBuilder res=new StringBuilder();
-        for (int i = 0; i < 5 ; i++) {
+        for (int i = 0; i < 8 ; i++) {
             int randIndex=rand.nextInt(aToZ.length());
             res.append(aToZ.charAt(randIndex));
         }
